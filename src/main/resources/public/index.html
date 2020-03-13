@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+	<input type="text"/>
+	<input type="text"/>
+	<button onclick="select()">test</button>
+</body>
+<script>
+function select()
+{
+	
+	
+	var settings = {
+			  "url": "http://localhost:8081/SpringBootinMaven/authenticate",
+			  "method": "POST",
+			  "timeout": 0,
+			  "headers": {
+			    "Content-Type": "application/json"
+			  },
+			  "data": JSON.stringify({"User":"admin","Password":"admin"}),
+			};
+
+			$.ajax(settings).done(function (response) {
+			  console.log(response);
+			  var settings = {
+					  "url": "http://localhost:8081/SpringBootinMaven/page",
+					  "method": "GET",
+					  "timeout": 0,
+					  "headers": {
+					    "Authorization": "Bearer "+response
+					  },
+					};
+
+					$.ajax(settings).done(function (response) {
+					  console.log(response);
+					  location.replace = '/page';
+					});
+			});
+	}
+
+</script>
+</html>
